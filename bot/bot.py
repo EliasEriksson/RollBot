@@ -96,7 +96,6 @@ class Client(discord.Client):
             await message.channel.send(f"{member.display_name} is not registered.")
 
     async def _provide_welfare(self):
-        print("providing welfare")
         members: List[int] = []
         for guild in self.guilds:
             guild: discord.Guild
@@ -112,7 +111,6 @@ class Client(discord.Client):
         await self.manager.add_welfare(*members, amount=11)
 
     async def _acquire_tax(self):
-        print("stealing tax money")
         members: List[int] = []
         for guild in self.guilds:
             guild: discord.Guild
@@ -125,7 +123,7 @@ class Client(discord.Client):
         self.manager = await Manager.open()
         scheduler = AsyncIOScheduler()
         scheduler.add_job(self._provide_welfare, IntervalTrigger(
-            minutes=0, seconds=11))
+            minutes=1, seconds=11))
         scheduler.add_job(self._acquire_tax, CronTrigger(
             hour=0
         ))
